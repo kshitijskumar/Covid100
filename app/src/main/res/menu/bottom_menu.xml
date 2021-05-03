@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/resourceFragment"
+        android:title="Resource"
+        android:icon="@drawable/ic_resource" />
+
+    <item android:id="@+id/helpFragment"
+        android:title="Help"
+        android:icon="@drawable/ic_help"/>
+
+    <item android:id="@+id/statsFragment"
+        android:title="Stats"
+        android:icon="@drawable/ic_cases"/>
+
+    <item android:id="@+id/newsFragment"
+        android:title="News"
+        android:icon="@drawable/ic_news"/>
+
+    <item android:id="@+id/vaccineFragment"
+        android:title="Vaccination"
+        android:icon="@drawable/ic_vaccine"/>
+
+</menu>
