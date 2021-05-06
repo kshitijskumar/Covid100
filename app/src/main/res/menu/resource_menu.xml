@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/resourceAll"
+        android:title="All Resources"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/resourceOxygen"
+        android:title="Oxygen"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/resourceICU"
+        android:title="ICU"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/resourceVenti"
+        android:title="Ventilator"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/resourceMedicine"
+        android:title="Medicine"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/resourceHospital"
+        android:title="Hospital"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/resourcePlasma"
+        android:title="Plasma"
+        app:showAsAction="never"/>
+
+</menu>

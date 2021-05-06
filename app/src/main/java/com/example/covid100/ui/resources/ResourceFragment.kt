@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.covid100.R
 import com.example.covid100.databinding.FragmentResourcesBinding
-import com.example.covid100.utils.Injector
 import com.example.covid100.utils.Result
+import com.example.covid100.utils.UtilFunctions.showToast
 
 class ResourceFragment : Fragment() {
 
@@ -16,6 +18,8 @@ class ResourceFragment : Fragment() {
     private val binding : FragmentResourcesBinding get() = _binding!!
 
     private lateinit var viewModel: ResourceViewModel
+
+    private lateinit var resourceAdapter: ResourceAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,36 +34,88 @@ class ResourceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModel()
+        setupViews()
         observeValues()
-
-        val injector = Injector.getInstance()
-        Log.d("Injector", "Injector is $injector")
-        Log.d("Injector", "Firestore is ${injector.providesFirestore()}")
-        Log.d("Injector", "Firestore is ${injector.providesFirestoreService()}")
-
-
     }
 
     private fun setupViewModel() {
         viewModel = ResourceViewModel.getResourceViewModel(this)
     }
 
+    private fun setupViews() {
+        setupToolbarMenu()
+        setupRecyclerView()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getAllResources()
+        }
+    }
+
     private fun observeValues() {
         viewModel.resources.observe(viewLifecycleOwner) {
             when(it) {
                 is Result.Success -> {
-                    Log.d("Resources", "List is ${it.data}")
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    resourceAdapter.submitList(it.data)
                 }
                 is Result.Error -> {
-                    Log.d("Resources", "Error is ${it.errorMsg}")
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    requireContext().showToast("Something went wrong. ${it.errorMsg}")
                 }
                 is Result.Loading -> {
-                    Log.d("Resources", "Loading")
+                    binding.swipeRefreshLayout.isRefreshing = true
                 }
                 is Result.EmptySuccess -> {
-                    Log.d("Resources", "Empty success")
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    resourceAdapter.submitList(listOf())
+                    requireContext().showToast("Sorry, no resources available.")
                 }
             }
+        }
+    }
+
+    private fun setupToolbarMenu() {
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.resourceAll -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                R.id.resourceOxygen -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                R.id.resourceICU -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                R.id.resourceVenti -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                R.id.resourceMedicine -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                R.id.resourceHospital -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                R.id.resourcePlasma -> {
+                    binding.toolbar.title = it.title
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        resourceAdapter = ResourceAdapter {
+            Log.d("ResourceFragment", "item clicked: $it")
+        }
+        binding.rvResources.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = resourceAdapter
         }
     }
 
