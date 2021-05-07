@@ -20,6 +20,10 @@ class ResourceViewModel(
     val resources: LiveData<Result<List<ResourceBody>>>
         get() = _resources
 
+    private val _resourceInfo = MutableLiveData<Result<ResourceBody>>()
+    val resourceInfo : LiveData<Result<ResourceBody>>
+        get() = _resourceInfo
+
     init {
         if(autoFetch) {
             getAllResources()
@@ -86,6 +90,10 @@ class ResourceViewModel(
         repo.likeDislikeResource(id, updateUpvote, updateDownvotes)
     }
 
+    fun getResourceInfo(id: String) = viewModelScope.launch {
+        _resourceInfo.value = Result.Loading
+        _resourceInfo.value = repo.getResourceInfo(id)
+    }
 
 
     companion object {

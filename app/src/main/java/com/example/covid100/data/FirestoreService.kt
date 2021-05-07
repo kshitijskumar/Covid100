@@ -58,9 +58,27 @@ class FirestoreService(
             db.collection(RESOURCE_COLLECTION).document(id).set(
                 map,
                 SetOptions.merge()
-            )
+            ).await()
         }catch (e: Exception) {
             Log.d(TAG, "like dislike error: ${e.message}")
+        }
+    }
+
+    suspend fun getResourceInfo(id: String) : Result<ResourceBody> {
+        return try{
+            val info = db.collection(RESOURCE_COLLECTION)
+                .document(id)
+                .get()
+                .await()
+                .toObject(ResourceBody::class.java)
+            if (info == null) {
+                Result.Error("No information found.")
+            }else {
+                Result.Success(info)
+            }
+        }catch (e: Exception) {
+            Log.d(TAG, "get resource info error: ${e.message}")
+            Result.Error("Something went wrong.")
         }
     }
 

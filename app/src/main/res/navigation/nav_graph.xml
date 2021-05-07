@@ -6,7 +6,11 @@
     <fragment
         android:id="@+id/resourceFragment"
         android:name="com.example.covid100.ui.resources.ResourceFragment"
-        android:label="ResourceFragment" />
+        android:label="ResourceFragment" >
+        <action
+            android:id="@+id/action_resourceFragment_to_resourceDetailBottomSheetFragment"
+            app:destination="@id/resourceDetailBottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/helpFragment"
         android:name="com.example.covid100.ui.help.HelpFragment"
@@ -23,4 +27,8 @@
         android:id="@+id/vaccineFragment"
         android:name="com.example.covid100.ui.vaccine.VaccineFragment"
         android:label="VaccineFragment" />
+    <dialog
+        android:id="@+id/resourceDetailBottomSheetFragment"
+        android:name="com.example.covid100.ui.resourcedetail.ResourceDetailBottomSheetFragment"
+        android:label="ResourceDetailBottomSheetFragment" />
 </navigation>
