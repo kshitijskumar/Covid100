@@ -110,9 +110,14 @@ class ResourceFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        resourceAdapter = ResourceAdapter {
-            Log.d("ResourceFragment", "item clicked: $it")
-        }
+        resourceAdapter = ResourceAdapter(
+            {
+                Log.d("ResourcesFragment", "Item clicked: $it")
+            },
+            { id, up, down, isLike, toggle ->
+                viewModel.likeDislikeResource(id, up, down, isLike, toggle)
+            }
+        )
         binding.rvResources.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = resourceAdapter

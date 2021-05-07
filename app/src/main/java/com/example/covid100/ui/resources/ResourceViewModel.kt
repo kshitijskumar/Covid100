@@ -61,6 +61,31 @@ class ResourceViewModel(
         }
     }
 
+    fun likeDislikeResource(
+        id: String,
+        upvotes: Int,
+        downvotes: Int,
+        isLike: Boolean,
+        isToggled: Boolean = false
+    ) = viewModelScope.launch {
+        var updateUpvote = upvotes
+        var updateDownvotes = downvotes
+
+        if(isLike) {
+            updateUpvote += 1
+            if(isToggled) {
+                updateDownvotes -= 1
+            }
+        }else {
+            updateDownvotes += 1
+            if (isToggled) {
+                updateUpvote -= 1
+            }
+        }
+
+        repo.likeDislikeResource(id, updateUpvote, updateDownvotes)
+    }
+
 
 
     companion object {

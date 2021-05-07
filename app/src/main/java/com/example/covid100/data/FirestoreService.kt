@@ -49,6 +49,21 @@ class FirestoreService(
         }
     }
 
+    suspend fun likeDislikeResource(id: String, upvotes: Int, downvotes: Int) {
+        try {
+            val map = hashMapOf<String, Int>(
+                "upVotes" to upvotes,
+                "downVotes" to downvotes
+            )
+            db.collection(RESOURCE_COLLECTION).document(id).set(
+                map,
+                SetOptions.merge()
+            )
+        }catch (e: Exception) {
+            Log.d(TAG, "like dislike error: ${e.message}")
+        }
+    }
+
 
 
 }

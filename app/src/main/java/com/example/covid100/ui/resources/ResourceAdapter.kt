@@ -1,18 +1,17 @@
 package com.example.covid100.ui.resources
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.covid100.R
 import com.example.covid100.data.model.ResourceBody
 import com.example.covid100.databinding.HolderResourceBinding
 import com.example.covid100.utils.UtilFunctions.mapResourceCodeToResourceString
 
 class ResourceAdapter(
-    private val itemClick : (id: String) -> Unit
+    private val itemClick : (id: String) -> Unit,
+    private val likeHandle : (id: String, up: Int, down: Int, isLike: Boolean, toggle: Boolean) -> Unit
 ) : ListAdapter<ResourceBody, ResourceAdapter.ResourceViewHolder>(diffUtil) {
 
     companion object {
@@ -35,12 +34,16 @@ class ResourceAdapter(
 
     override fun onBindViewHolder(holder: ResourceViewHolder, position: Int) {
         val item = getItem(position)
-        holder.populateView(item, itemClick)
+        holder.populateView(item, itemClick, likeHandle)
     }
 
     class ResourceViewHolder(private val binding: HolderResourceBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun populateView(item: ResourceBody, itemClick: (id: String) -> Unit) {
+        fun populateView(
+            item: ResourceBody,
+            itemClick: (id: String) -> Unit,
+            likeHandle : (id: String, up: Int, down: Int, isLike: Boolean, toggle: Boolean) -> Unit
+            ) {
             binding.apply {
                 tvName.text = item.name
                 tvContact.text = item.contact
@@ -57,7 +60,13 @@ class ResourceAdapter(
 
             //unchecking the downvote if upvote ischecked and downvote was checked
             binding.cbUpvote.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked && binding.cbDownvote.isChecked) {
+                val toggle = isChecked && binding.cbDownvote.isChecked
+
+                item.id?.let {
+                    likeHandle(item.id, item.upVotes, item.downVotes,true, toggle )
+                }
+
+                if (toggle) {
                     binding.cbDownvote.isChecked = false
                     binding.tvDownvote.text = (item.downVotes).toString()
                 }
@@ -69,7 +78,12 @@ class ResourceAdapter(
             }
             //unchecking the upvote if downvote is checked and upvote was checked
             binding.cbDownvote.setOnCheckedChangeListener { buttonView, isChecked ->
-                if(isChecked && binding.cbUpvote.isChecked) {
+                val toggle = isChecked && binding.cbUpvote.isChecked
+
+                item.id?.let {
+                    likeHandle(item.id, item.upVotes, item.downVotes,false, toggle )
+                }
+                if(toggle) {
                     binding.cbUpvote.isChecked = false
                     binding.tvUpvote.text = (item.upVotes).toString()
                 }

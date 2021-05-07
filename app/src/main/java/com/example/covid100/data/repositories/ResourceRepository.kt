@@ -33,4 +33,10 @@ class ResourceRepository(
             firestoreService.getAllResources()
         }
     }
+
+    suspend fun likeDislikeResource(id: String, upvotes: Int, downvotes: Int) {
+        withContext(Dispatchers.IO) {
+            firestoreService.likeDislikeResource(id, upvotes, downvotes)
+        }
+    }
 }
