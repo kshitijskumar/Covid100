@@ -1,16 +1,18 @@
 package com.example.covid100.ui.resources
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.covid100.R
 import com.example.covid100.data.model.ResourceBody
 import com.example.covid100.databinding.HolderResourceBinding
 import com.example.covid100.utils.UtilFunctions.mapResourceCodeToResourceString
 
 class ResourceAdapter(
-    private val itemClick : (resource: ResourceBody) -> Unit
+    private val itemClick : (id: String) -> Unit
 ) : ListAdapter<ResourceBody, ResourceAdapter.ResourceViewHolder>(diffUtil) {
 
     companion object {
@@ -27,7 +29,7 @@ class ResourceAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResourceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = HolderResourceBinding.inflate(inflater)
+        val binding = HolderResourceBinding.inflate(inflater, parent, false)
         return ResourceViewHolder(binding)
     }
 
@@ -38,7 +40,7 @@ class ResourceAdapter(
 
     class ResourceViewHolder(private val binding: HolderResourceBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun populateView(item: ResourceBody, itemClick: (resource: ResourceBody) -> Unit) {
+        fun populateView(item: ResourceBody, itemClick: (id: String) -> Unit) {
             binding.apply {
                 tvName.text = item.name
                 tvContact.text = item.contact
@@ -48,7 +50,9 @@ class ResourceAdapter(
                 tvDownvote.text = item.downVotes.toString()
             }
             binding.root.setOnClickListener {
-                itemClick(item)
+                item.id?.let { id ->
+                    itemClick(id)
+                }
             }
 
             //unchecking the downvote if upvote ischecked and downvote was checked
