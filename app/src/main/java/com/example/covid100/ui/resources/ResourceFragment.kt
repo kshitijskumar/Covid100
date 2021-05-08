@@ -50,6 +50,9 @@ class ResourceFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getAllResources()
         }
+        binding.fabUpload.setOnClickListener {
+            findNavController().navigate(R.id.action_resourceFragment_to_uploadFragment)
+        }
     }
 
     private fun observeValues() {

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Please try to provide verified sources to the best of your knowledge."
+            android:gravity="center"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Volunteer/Contact name"
+            app:layout_constraintTop_toBottomOf="@id/tvInfo"
+            app:layout_constraintStart_toStartOf="@id/tvInfo"
+            app:layout_constraintEnd_toEndOf="@id/tvInfo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="48dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/contactLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Contact info (eg. Phone no.) *"
+            app:layout_constraintTop_toBottomOf="@id/nameLayout"
+            app:layout_constraintStart_toStartOf="@id/nameLayout"
+            app:layout_constraintEnd_toEndOf="@id/nameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="18dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/resourceLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/contactLayout"
+            app:layout_constraintEnd_toEndOf="@id/contactLayout"
+            app:layout_constraintTop_toBottomOf="@id/contactLayout"
+            android:layout_marginTop="18dp"
+            android:hint="Resource type *"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/etResourceType"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/msgLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Any additional information"
+            app:layout_constraintTop_toBottomOf="@id/resourceLayout"
+            app:layout_constraintStart_toStartOf="@id/resourceLayout"
+            app:layout_constraintEnd_toEndOf="@id/resourceLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="18dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:gravity="top|start"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpload"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Upload Resource"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/msgLayout"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="32dp"
+            app:cornerRadius="100dp"/>
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/btnUpload"
+            app:layout_constraintEnd_toEndOf="@id/btnUpload"
+            app:layout_constraintBottom_toTopOf="@id/btnUpload"
+            android:layout_marginBottom="14dp"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

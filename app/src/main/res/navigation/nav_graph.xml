@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_resourceFragment_to_resourceDetailBottomSheetFragment"
             app:destination="@id/resourceDetailBottomSheetFragment" />
+        <action
+            android:id="@+id/action_resourceFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
     </fragment>
     <fragment
         android:id="@+id/helpFragment"
@@ -31,4 +34,8 @@
         android:id="@+id/resourceDetailBottomSheetFragment"
         android:name="com.example.covid100.ui.resourcedetail.ResourceDetailBottomSheetFragment"
         android:label="ResourceDetailBottomSheetFragment" />
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.example.covid100.ui.upload.UploadFragment"
+        android:label="UploadFragment" />
 </navigation>

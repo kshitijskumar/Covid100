@@ -41,6 +41,8 @@ class ResourceViewModel(
 
         if(contact.isNullOrEmpty()) {
             _uploadStatus.value = Result.Error("Please enter a valid contact detail.")
+        }else if(contact.length < 10) {
+            _uploadStatus.value = Result.Error("Please enter a valid 10 digit phone number.")
         }else if(resourceType.isNullOrEmpty()) {
             _uploadStatus.value = Result.Error("Please enter a valid resource type.")
         }else {

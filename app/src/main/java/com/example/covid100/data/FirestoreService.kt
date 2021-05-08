@@ -27,7 +27,7 @@ class FirestoreService(
             db.collection(RESOURCE_COLLECTION).document(id).set(
                     hashMapOf("id" to id),
                     SetOptions.merge()
-            )
+            ).await()
             Result.EmptySuccess
         }catch (e: Exception) {
             Log.d(TAG, "upload error: ${e.message}")
@@ -37,7 +37,9 @@ class FirestoreService(
 
     suspend fun getAllResources() : Result<List<ResourceBody>> {
         return try {
-            val response = db.collection(RESOURCE_COLLECTION).get().await()
+            val response = db.collection(RESOURCE_COLLECTION)
+                .get()
+                .await()
             val resource = response.toObjects(ResourceBody::class.java)
             if(resource.isNullOrEmpty())
                 Result.EmptySuccess

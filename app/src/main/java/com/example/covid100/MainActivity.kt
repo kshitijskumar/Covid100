@@ -2,6 +2,7 @@ package com.example.covid100
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -26,5 +27,16 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.bottomNavView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id) {
+                R.id.uploadFragment -> {
+                    binding.bottomNavView.visibility = View.GONE
+                }
+                else -> {
+                    binding.bottomNavView.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }
