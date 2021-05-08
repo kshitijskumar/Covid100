@@ -61,12 +61,20 @@
             style="@style/TextAppearance.MaterialComponents.Headline6"/>
 
         <ImageButton
+            android:id="@+id/btnShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share"
+            android:backgroundTint="@color/white"
+            android:layout_marginEnd="4dp"/>
+        <ImageButton
             android:id="@+id/btnCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_call"
             android:backgroundTint="@color/white"
-            android:contentDescription="Call button" />
+            android:contentDescription="Call button"
+            android:layout_marginStart="4dp"/>
     </LinearLayout>
 
     <TextView

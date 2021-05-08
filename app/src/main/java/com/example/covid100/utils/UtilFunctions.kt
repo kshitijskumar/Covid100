@@ -32,4 +32,9 @@ object UtilFunctions {
     fun Context.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, msg, duration).show()
     }
+
+    fun returnShareText(name: String?, contact: String?, msg: String?, resourceType: Int) : String {
+        return "Please contact $name, $contact for ${mapResourceCodeToResourceString(resourceType)}." +
+                " Information: $msg - Covid100"
+    }
 }

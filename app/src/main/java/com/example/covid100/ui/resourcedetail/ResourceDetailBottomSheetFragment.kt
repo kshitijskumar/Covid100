@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.covid100.databinding.BottomSheetFragmentResourceDetailBinding
 import com.example.covid100.ui.resources.ResourceViewModel
+import com.example.covid100.utils.Constants.NULL_RESOURCE_TYPE
 import com.example.covid100.utils.Result
 import com.example.covid100.utils.UtilFunctions.mapResourceCodeToResourceString
+import com.example.covid100.utils.UtilFunctions.returnShareText
 import com.example.covid100.utils.UtilFunctions.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -72,6 +74,10 @@ class ResourceDetailBottomSheetFragment : BottomSheetDialogFragment() {
                             callResource(contact)
                         }
                     }
+
+                    binding.btnShare.setOnClickListener {
+                        shareResource(info.name, info.contact, info.msg, info.resourceType ?: NULL_RESOURCE_TYPE)
+                    }
                 }
             }
         }
@@ -82,7 +88,15 @@ class ResourceDetailBottomSheetFragment : BottomSheetDialogFragment() {
             data = Uri.parse("tel: $contact")
         }
         startActivity(callIntent)
+    }
 
+    private fun shareResource(name: String?, contact: String?, msg: String?, resourceType: Int) {
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, returnShareText(name, contact, msg, resourceType))
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
 
