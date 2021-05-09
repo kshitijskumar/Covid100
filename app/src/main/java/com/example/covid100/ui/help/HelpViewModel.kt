@@ -5,8 +5,10 @@ import com.example.covid100.data.model.HelpBody
 import com.example.covid100.data.repositories.HelpRepository
 import com.example.covid100.utils.Injector
 import com.example.covid100.utils.Result
+import com.example.covid100.utils.UtilFunctions.mapResourceStringToResourceCode
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 @Suppress("UNCHECKED_CAST")
 class HelpViewModel(
@@ -24,6 +26,44 @@ class HelpViewModel(
     fun getAllHelpRequests() = viewModelScope.launch {
         repo.getAllHelpNeeded().collect {
             _allHelpRequests.postValue(it)
+        }
+    }
+
+    fun uploadHelpRequest(
+        name: String?,
+        age: String?,
+        contact: String?,
+        resourceType: String?,
+        info: String
+    ) = viewModelScope.launch {
+        _uploadStatus.value = Result.Loading
+
+        if(age.isNullOrEmpty()) {
+            _uploadStatus.value = Result.Error("Please enter the age of the patient.")
+        }else if (contact.isNullOrEmpty()){
+            _uploadStatus.value = Result.Error("Please enter a contact number.")
+        }else if(contact.length < 10) {
+            _uploadStatus.value = Result.Error("Please enter a valid 10 digit contact number.")
+        }else if(resourceType.isNullOrEmpty()) {
+            _uploadStatus.value = Result.Error("Please choose a resource type you're looking for.")
+        }else {
+            val intAge = age.toInt()
+            val resourceCode = mapResourceStringToResourceCode(resourceType)
+            val helpName = if(name.isNullOrEmpty()) "Someone" else name
+
+            val help = HelpBody(
+                helpName,
+                resourceCode,
+                intAge,
+                contact,
+                Calendar.getInstance().timeInMillis,
+                info
+            )
+
+            repo.uploadHelpRequest(help).collect {
+                _uploadStatus.postValue(it)
+            }
+
         }
     }
 

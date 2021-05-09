@@ -13,14 +13,15 @@ class ResourceRepository(
 ) {
 
     suspend fun uploadResource(
-            name: String = "Helper",
+            name: String?,
             contact: String? = null,
             resourceType: Int? = null,
             msg: String? = null
     ) : Result<Nothing> {
         return withContext(Dispatchers.IO) {
             val date = Calendar.getInstance().timeInMillis
-            val resource = ResourceBody(name= name, contact = contact, resourceType = resourceType, msg = msg, date = date)
+            val volunteerName = if(name.isNullOrEmpty()) "Someone" else name
+            val resource = ResourceBody(name= volunteerName, contact = contact, resourceType = resourceType, msg = msg, date = date)
             firestoreService.uploadResourceInfo(resource)
         }
     }

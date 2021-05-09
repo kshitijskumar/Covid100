@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.covid100.R
 import com.example.covid100.databinding.FragmentHelpBinding
 import com.example.covid100.utils.Result
 import com.example.covid100.utils.UtilFunctions.showToast
@@ -45,6 +47,9 @@ class HelpFragment : Fragment() {
         setupRecyclerView()
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getAllHelpRequests()
+        }
+        binding.fabRequestHelp.setOnClickListener {
+            findNavController().navigate(R.id.action_helpFragment_to_uploadHelpFragment)
         }
     }
 

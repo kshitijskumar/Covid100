@@ -30,9 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when(destination.id) {
-                R.id.uploadFragment -> {
+                R.id.uploadFragment, R.id.uploadHelpFragment -> {
                     binding.bottomNavView.visibility = View.GONE
                 }
+
                 else -> {
                     binding.bottomNavView.visibility = View.VISIBLE
                 }

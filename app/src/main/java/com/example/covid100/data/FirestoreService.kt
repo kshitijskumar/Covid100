@@ -94,6 +94,7 @@ class FirestoreService(
         emit(Result.Loading)
 
         val info = db.collection(HELP_NEEDED_COLLECTION)
+            .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .await().toObjects(HelpBody::class.java)
 

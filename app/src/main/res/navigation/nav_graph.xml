@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/helpFragment"
         android:name="com.example.covid100.ui.help.HelpFragment"
-        android:label="HelpFragment" />
+        android:label="HelpFragment" >
+        <action
+            android:id="@+id/action_helpFragment_to_uploadHelpFragment"
+            app:destination="@id/uploadHelpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.example.covid100.ui.stats.StatsFragment"
@@ -38,4 +42,8 @@
         android:id="@+id/uploadFragment"
         android:name="com.example.covid100.ui.upload.UploadFragment"
         android:label="UploadFragment" />
+    <fragment
+        android:id="@+id/uploadHelpFragment"
+        android:name="com.example.covid100.ui.uploadhelp.UploadHelpFragment"
+        android:label="UploadHelpFragment" />
 </navigation>
