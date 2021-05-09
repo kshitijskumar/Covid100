@@ -10,7 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.covid100.R
+import com.example.covid100.data.model.ResourceBody
 import com.example.covid100.databinding.FragmentResourcesBinding
+import com.example.covid100.utils.Constants.HOSPITAL_CODE
+import com.example.covid100.utils.Constants.ICU_CODE
+import com.example.covid100.utils.Constants.MEDICINE_CODE
+import com.example.covid100.utils.Constants.OXYGEN_CODE
+import com.example.covid100.utils.Constants.PLASMA_CODE
+import com.example.covid100.utils.Constants.VENTI_CODE
 import com.example.covid100.utils.Result
 import com.example.covid100.utils.UtilFunctions.showToast
 
@@ -22,6 +29,8 @@ class ResourceFragment : Fragment() {
     private lateinit var viewModel: ResourceViewModel
 
     private lateinit var resourceAdapter: ResourceAdapter
+
+    private var allResourcesList = listOf<ResourceBody>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +70,7 @@ class ResourceFragment : Fragment() {
                 is Result.Success -> {
                     binding.swipeRefreshLayout.isRefreshing = false
                     resourceAdapter.submitList(it.data)
+                    allResourcesList = it.data
                 }
                 is Result.Error -> {
                     binding.swipeRefreshLayout.isRefreshing = false
@@ -83,30 +93,49 @@ class ResourceFragment : Fragment() {
             when(it.itemId) {
                 R.id.resourceAll -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(allResourcesList)
                     true
                 }
                 R.id.resourceOxygen -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(
+                        viewModel.getSpecificResource(OXYGEN_CODE)
+                    )
                     true
                 }
                 R.id.resourceICU -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(
+                        viewModel.getSpecificResource(ICU_CODE)
+                    )
                     true
                 }
                 R.id.resourceVenti -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(
+                        viewModel.getSpecificResource(VENTI_CODE)
+                    )
                     true
                 }
                 R.id.resourceMedicine -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(
+                        viewModel.getSpecificResource(MEDICINE_CODE)
+                    )
                     true
                 }
                 R.id.resourceHospital -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(
+                        viewModel.getSpecificResource(HOSPITAL_CODE)
+                    )
                     true
                 }
                 R.id.resourcePlasma -> {
                     binding.toolbar.title = it.title
+                    resourceAdapter.submitList(
+                        viewModel.getSpecificResource(PLASMA_CODE)
+                    )
                     true
                 }
                 else -> false
