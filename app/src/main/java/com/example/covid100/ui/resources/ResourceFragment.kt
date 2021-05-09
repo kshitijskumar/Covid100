@@ -70,6 +70,7 @@ class ResourceFragment : Fragment() {
                 is Result.Success -> {
                     binding.swipeRefreshLayout.isRefreshing = false
                     resourceAdapter.submitList(it.data)
+                    binding.toolbar.title = "All Resources"
                     allResourcesList = it.data
                 }
                 is Result.Error -> {

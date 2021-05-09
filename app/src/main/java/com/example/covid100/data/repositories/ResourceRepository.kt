@@ -2,12 +2,10 @@ package com.example.covid100.data.repositories
 
 import com.example.covid100.data.FirestoreService
 import com.example.covid100.data.model.ResourceBody
-import com.example.covid100.utils.Constants.DATE_TIME_FORMAT
 import com.example.covid100.utils.Injector
 import com.example.covid100.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ResourceRepository(
@@ -21,9 +19,8 @@ class ResourceRepository(
             msg: String? = null
     ) : Result<Nothing> {
         return withContext(Dispatchers.IO) {
-            val format = SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault())
-            val date = Calendar.getInstance().time
-            val resource = ResourceBody(name= name, contact = contact, resourceType = resourceType, msg = msg, date = format.format(date))
+            val date = Calendar.getInstance().timeInMillis
+            val resource = ResourceBody(name= name, contact = contact, resourceType = resourceType, msg = msg, date = date)
             firestoreService.uploadResourceInfo(resource)
         }
     }

@@ -63,7 +63,7 @@ class ResourceDetailBottomSheetFragment : BottomSheetDialogFragment() {
                 is Result.Success -> {
                     val info = it.data
                     binding.apply {
-                        tvDate.text = info.date
+                        tvDate.text = info.dateToDisplay
                         tvName.text = info.name
                         tvContact.text = info.contact
                         tvMsg.text = info.msg

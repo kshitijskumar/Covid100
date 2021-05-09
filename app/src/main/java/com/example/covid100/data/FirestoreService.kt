@@ -8,6 +8,7 @@ import com.example.covid100.utils.Constants.RESOURCE_COLLECTION
 import com.example.covid100.utils.Injector
 import com.example.covid100.utils.Result
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -42,6 +43,7 @@ class FirestoreService(
     suspend fun getAllResources() : Result<List<ResourceBody>> {
         return try {
             val response = db.collection(RESOURCE_COLLECTION)
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .await()
             val resource = response.toObjects(ResourceBody::class.java)

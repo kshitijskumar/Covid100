@@ -47,7 +47,7 @@ class ResourceAdapter(
             binding.apply {
                 tvName.text = item.name
                 tvContact.text = item.contact
-                tvDate.text = item.date
+                tvDate.text = item.dateToDisplay
                 tvResourceType.text = mapResourceCodeToResourceString(item.resourceType ?: -1)
                 tvUpvote.text = item.upVotes.toString()
                 tvDownvote.text = item.downVotes.toString()
