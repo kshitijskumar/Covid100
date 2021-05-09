@@ -1,12 +1,16 @@
 package com.example.covid100.data
 
 import android.util.Log
+import com.example.covid100.data.model.HelpBody
 import com.example.covid100.data.model.ResourceBody
+import com.example.covid100.utils.Constants.HELP_NEEDED_COLLECTION
 import com.example.covid100.utils.Constants.RESOURCE_COLLECTION
 import com.example.covid100.utils.Injector
 import com.example.covid100.utils.Result
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
@@ -84,6 +88,46 @@ class FirestoreService(
         }
     }
 
+    suspend fun getAllHelpNeeded() = flow<Result<List<HelpBody>>> {
+        emit(Result.Loading)
+
+        val info = db.collection(HELP_NEEDED_COLLECTION)
+            .get()
+            .await().toObjects(HelpBody::class.java)
+
+        if(info.isNullOrEmpty()) {
+            emit(Result.EmptySuccess)
+        }else {
+            emit(Result.Success(info))
+        }
+    }
+        .catch { e ->
+            Log.d(TAG, "get all help needed error: ${e.message}")
+            emit(Result.Error("Something went wrong while fetching. ${e.localizedMessage}"))
+        }
+        .flowOn(Dispatchers.IO)
 
 
+    suspend fun uploadHelpRequest(help: HelpBody) = flow {
+        emit(Result.Loading)
+
+        val ref = db.collection(HELP_NEEDED_COLLECTION)
+            .add(help).await()
+
+        val id = ref.id
+
+        db.collection(HELP_NEEDED_COLLECTION)
+            .document(id)
+            .set(
+                hashMapOf(
+                    "id" to id
+                ),
+                SetOptions.merge()
+            ).await()
+
+        emit(Result.EmptySuccess)
+    }.catch { e ->
+        Log.d(TAG, "upload help error: ${e.localizedMessage}")
+        emit(Result.Error("Error while uploading the request. ${e.localizedMessage}"))
+    }.flowOn(Dispatchers.IO)
 }

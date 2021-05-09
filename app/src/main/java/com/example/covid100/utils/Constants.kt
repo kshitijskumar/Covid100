@@ -4,6 +4,7 @@ object Constants {
 
 
     const val RESOURCE_COLLECTION = "resources"
+    const val HELP_NEEDED_COLLECTION = "help"
 
     const val DATE_TIME_FORMAT = "dd/MM/yyyy 'at' HH:mm:ss"
 

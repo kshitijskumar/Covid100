@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.covid100.data.FirestoreService
 import com.example.covid100.databinding.FragmentHelpBinding
-import com.example.covid100.utils.Injector
 
 class HelpFragment : Fragment() {
 
     private var _binding : FragmentHelpBinding? = null
     private val binding : FragmentHelpBinding get() = _binding!!
+
+    private lateinit var viewModel: HelpViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,10 +26,16 @@ class HelpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val injector = Injector.getInstance()
-        Log.d("Injector", "Injector is $injector")
-        Log.d("Injector", "Firestore is ${injector.providesFirestore()}")
-        Log.d("Injector", "Firestore is ${injector.providesFirestoreService()}")
+
+        setupViewModel()
+        setupViews()
+    }
+
+    private fun setupViewModel() {
+        viewModel = HelpViewModel.getHelpViewModel(this, true)
+    }
+
+    private fun setupViews() {
 
     }
 

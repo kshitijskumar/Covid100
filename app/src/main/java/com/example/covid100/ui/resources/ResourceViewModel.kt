@@ -1,15 +1,17 @@
 package com.example.covid100.ui.resources
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.covid100.data.model.ResourceBody
 import com.example.covid100.data.repositories.ResourceRepository
+import com.example.covid100.utils.Injector
 import com.example.covid100.utils.Result
 import com.example.covid100.utils.UtilFunctions.mapResourceStringToResourceCode
 import kotlinx.coroutines.launch
 
 class ResourceViewModel(
         private val repo : ResourceRepository,
-        private val autoFetch: Boolean = true
+        autoFetch: Boolean = true
 ) : ViewModel() {
 
     private val _uploadStatus = MutableLiveData<Result<Nothing>>()
@@ -102,7 +104,7 @@ class ResourceViewModel(
         @Suppress("UNCHECKED_CAST")
         private class ResourceVMFactory(private val autoFetch: Boolean) : ViewModelProvider.NewInstanceFactory() {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo = ResourceRepository()
+                val repo = Injector.getInstance().providesResourceRepository()
                 return ResourceViewModel(repo, autoFetch) as T
             }
         }
