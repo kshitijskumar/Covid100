@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.covid100.databinding.FragmentHelpBinding
+import com.example.covid100.utils.Result
+import com.example.covid100.utils.UtilFunctions.showToast
 
 class HelpFragment : Fragment() {
 
@@ -14,6 +17,8 @@ class HelpFragment : Fragment() {
     private val binding : FragmentHelpBinding get() = _binding!!
 
     private lateinit var viewModel: HelpViewModel
+
+    private lateinit var helpAdapter : HelpAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +34,7 @@ class HelpFragment : Fragment() {
 
         setupViewModel()
         setupViews()
+        observeValues()
     }
 
     private fun setupViewModel() {
@@ -36,7 +42,43 @@ class HelpFragment : Fragment() {
     }
 
     private fun setupViews() {
+        setupRecyclerView()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getAllHelpRequests()
+        }
+    }
 
+    private fun setupRecyclerView() {
+        helpAdapter = HelpAdapter {
+            Log.d("HelpFragment", "Item click is: $it")
+        }
+
+        binding.rvHelp.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = helpAdapter
+        }
+    }
+
+    private fun observeValues() {
+        viewModel.allHelpRequests.observe(viewLifecycleOwner) {
+            when(it) {
+                is Result.Loading -> {
+                    binding.swipeRefreshLayout.isRefreshing = true
+                }
+                is Result.Error -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    requireContext().showToast(it.errorMsg)
+                }
+                is Result.Success -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    helpAdapter.submitList(it.data)
+                }
+                is Result.EmptySuccess -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    requireContext().showToast("No information found. Keep looking for people to help.")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

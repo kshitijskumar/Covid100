@@ -1,5 +1,6 @@
 package com.example.covid100.ui.help
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -24,14 +25,14 @@ class HelpAdapter(
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpViewHolder {
-        TODO("Not yet implemented")
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = HolderHelpBinding.inflate(inflater, parent, false)
+        return HelpViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: HelpViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.populateViews(getItem(position), itemClick)
     }
 
     class HelpViewHolder(private val binding: HolderHelpBinding) : RecyclerView.ViewHolder(binding.root) {

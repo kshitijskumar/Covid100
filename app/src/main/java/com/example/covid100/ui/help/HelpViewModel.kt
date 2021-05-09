@@ -27,6 +27,12 @@ class HelpViewModel(
         }
     }
 
+    init {
+        if (autoFetch) {
+            getAllHelpRequests()
+        }
+    }
+
     companion object {
         private class HelpViewModelFactory(private val autoFetch: Boolean) : ViewModelProvider.NewInstanceFactory() {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
