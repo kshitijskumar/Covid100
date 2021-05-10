@@ -15,4 +15,6 @@ class HelpRepository(
     }
 
     suspend fun uploadHelpRequest(help: HelpBody) = firestoreService.uploadHelpRequest(help)
+
+    suspend fun getHelpRequestInfo(id: String) = firestoreService.getHelpRequestInfo(id)
 }

@@ -23,6 +23,9 @@ class HelpViewModel(
     private val _allHelpRequests = MutableLiveData<Result<List<HelpBody>>>()
     val allHelpRequests : LiveData<Result<List<HelpBody>>> get() = _allHelpRequests
 
+    private val _helpInfo = MutableLiveData<Result<HelpBody>>()
+    val helpInfo : LiveData<Result<HelpBody>> get() = _helpInfo
+
     fun getAllHelpRequests() = viewModelScope.launch {
         repo.getAllHelpNeeded().collect {
             _allHelpRequests.postValue(it)
@@ -42,7 +45,7 @@ class HelpViewModel(
             _uploadStatus.value = Result.Error("Please enter the age of the patient.")
         }else if (contact.isNullOrEmpty()){
             _uploadStatus.value = Result.Error("Please enter a contact number.")
-        }else if(contact.length < 10) {
+        }else if(contact.length != 10) {
             _uploadStatus.value = Result.Error("Please enter a valid 10 digit contact number.")
         }else if(resourceType.isNullOrEmpty()) {
             _uploadStatus.value = Result.Error("Please choose a resource type you're looking for.")
@@ -64,6 +67,12 @@ class HelpViewModel(
                 _uploadStatus.postValue(it)
             }
 
+        }
+    }
+
+    fun getHelpRequestInfo(id: String) = viewModelScope.launch {
+        repo.getHelpRequestInfo(id).collect{
+            _helpInfo.postValue(it)
         }
     }
 

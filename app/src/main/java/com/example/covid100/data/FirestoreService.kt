@@ -133,4 +133,23 @@ class FirestoreService(
         Log.d(TAG, "upload help error: ${e.localizedMessage}")
         emit(Result.Error("Error while uploading the request. ${e.localizedMessage}"))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun getHelpRequestInfo(id: String) = flow<Result<HelpBody>> {
+        emit(Result.Loading)
+
+        val info = db.collection(HELP_NEEDED_COLLECTION)
+            .document(id)
+            .get()
+            .await()
+            .toObject(HelpBody::class.java)
+
+        if(info == null) {
+            emit(Result.EmptySuccess)
+        }else {
+            emit(Result.Success(info))
+        }
+    }.catch { e ->
+        Log.d(TAG, "getHelpInfo error : ${e.localizedMessage}")
+        emit(Result.Error("Something went wrong while gathering the information. ${e.localizedMessage}"))
+    }.flowOn(Dispatchers.IO)
 }

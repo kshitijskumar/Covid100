@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,6 +57,12 @@ class HelpFragment : Fragment() {
     private fun setupRecyclerView() {
         helpAdapter = HelpAdapter {
             Log.d("HelpFragment", "Item click is: $it")
+            findNavController().navigate(
+                R.id.action_helpFragment_to_helpDetailBottomSheetFragment,
+                bundleOf(
+                    "id" to it
+                )
+            )
         }
 
         binding.rvHelp.apply {

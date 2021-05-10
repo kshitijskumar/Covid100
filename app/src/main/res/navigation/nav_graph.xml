@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_helpFragment_to_uploadHelpFragment"
             app:destination="@id/uploadHelpFragment" />
+        <action
+            android:id="@+id/action_helpFragment_to_helpDetailBottomSheetFragment"
+            app:destination="@id/helpDetailBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/statsFragment"
@@ -46,4 +49,8 @@
         android:id="@+id/uploadHelpFragment"
         android:name="com.example.covid100.ui.uploadhelp.UploadHelpFragment"
         android:label="UploadHelpFragment" />
+    <dialog
+        android:id="@+id/helpDetailBottomSheetFragment"
+        android:name="com.example.covid100.ui.helpdetail.HelpDetailBottomSheetFragment"
+        android:label="HelpDetailBottomSheetFragment" />
 </navigation>
