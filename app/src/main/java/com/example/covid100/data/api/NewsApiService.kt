@@ -12,7 +12,7 @@ import retrofit2.http.GET
 
 interface NewsApiService {
 
-    @GET("everything?q=covid19&apiKey=${Constants.NEWS_API_KEY}")
+    @GET("everything?q=covid19&apiKey=${Constants.NEWS_API_KEY}&pageSize=100")
     suspend fun getCovidNews() : Response<NewsResponse>
 
 

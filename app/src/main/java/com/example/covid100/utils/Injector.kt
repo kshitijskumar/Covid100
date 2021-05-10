@@ -3,6 +3,7 @@ package com.example.covid100.utils
 import com.example.covid100.data.FirestoreService
 import com.example.covid100.data.api.NewsApiService
 import com.example.covid100.data.repositories.HelpRepository
+import com.example.covid100.data.repositories.NewsRepository
 import com.example.covid100.data.repositories.ResourceRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -16,6 +17,7 @@ class Injector private constructor() {
     //repositories
     private var resourceRepository : ResourceRepository? = null
     private var helpRepository: HelpRepository? = null
+    private var newsRepository: NewsRepository? = null
 
     //news api service
     private var newsApi : NewsApiService? = null
@@ -59,6 +61,15 @@ class Injector private constructor() {
 
         return helpRepository!!
     }
+
+    fun providesNewsRepository() : NewsRepository {
+        if(newsRepository == null) {
+            newsRepository = NewsRepository()
+        }
+
+        return newsRepository!!
+    }
+
 
     companion object {
         private var instance : Injector? = null
