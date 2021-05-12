@@ -21,4 +21,7 @@ object Constants {
     //News api base url
     const val NEWS_API_KEY = "2b49ce3e318e4547aedeb8c6b3aca021"
     const val NEWS_BASE_URL = "https://newsapi.org/v2/"
+
+    //Covid-19 api base url
+    const val COVID_BASE_URL = "https://corona-virus-world-and-india-data.p.rapidapi.com/"
 }

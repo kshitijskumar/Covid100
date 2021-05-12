@@ -1,6 +1,7 @@
 package com.example.covid100.utils
 
 import com.example.covid100.data.FirestoreService
+import com.example.covid100.data.api.CovidApiService
 import com.example.covid100.data.api.NewsApiService
 import com.example.covid100.data.repositories.HelpRepository
 import com.example.covid100.data.repositories.NewsRepository
@@ -21,6 +22,7 @@ class Injector private constructor() {
 
     //news api service
     private var newsApi : NewsApiService? = null
+    private var covidApi: CovidApiService? = null
 
     fun providesFirestore() : FirebaseFirestore {
         if (firestore == null) {
@@ -44,6 +46,14 @@ class Injector private constructor() {
         }
 
         return newsApi!!
+    }
+
+    fun providesCovidApiService() : CovidApiService {
+        if(covidApi == null) {
+            covidApi = CovidApiService.getCovidApiService()
+        }
+
+        return covidApi!!
     }
 
     fun providesResourceRepository() : ResourceRepository {
