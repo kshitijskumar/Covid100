@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CovidCaseCard">
+        <attr name="android:textColor"/>
+        <attr name="android:src"/>
+        <attr name="resType" format="string"/>
+        <attr name="count" format="string"/>
+        <attr name="delta" format="string"/>
+    </declare-styleable>
+
+</resources>

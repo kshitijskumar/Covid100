@@ -41,6 +41,11 @@ class StatsFragment : Fragment() {
             when(it) {
                 is Result.Success -> {
                     Log.d("StatsFragment", "List of cases is: ${it.data.stateWise?.listOfStatesData}")
+                    val info = it.data.totalValues
+                    binding.covidCard.apply {
+                        setCount(info?.confirmed)
+                        setDelta(info?.deltaconfirmed)
+                    }
                 }
             }
         }
