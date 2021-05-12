@@ -6,5 +6,5 @@ data class CovidStatResponse(
     @SerializedName("total_values")
     val totalValues: CovidStatSingleResponse? = null,
     @SerializedName("state_wise")
-    val stateWiseL: StateWiseResponse? = null
+    val stateWise: StateWiseResponse? = null
 )
