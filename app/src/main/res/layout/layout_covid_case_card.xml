@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/llHolder"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/ivType"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_margin="4dp"
             android:paddingStart="8dp"
@@ -36,15 +36,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/count"
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                style="@style/TextAppearance.MaterialComponents.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:layout_weight="1"
                 tools:text="2333903" />
 
             <TextView
@@ -53,7 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                tools:text="4293" />
+                tools:text="4293"
+                android:layout_marginStart="4dp"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

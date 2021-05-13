@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:weightSum="5">
+
+    <TextView
+        android:id="@+id/tvState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Arunachal Pradesh"
+        android:layout_weight="1"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:gravity="center"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:id="@+id/tvConfirmed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="2212221"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@android:color/holo_green_light"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:id="@+id/tvActive"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="2212221"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@android:color/holo_blue_light"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:id="@+id/tvRecovered"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="22122212"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_weight="1"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:id="@+id/tvDeath"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="22122"
+        android:gravity="center"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_weight="1"
+        android:layout_margin="4dp"/>
+
+</LinearLayout>

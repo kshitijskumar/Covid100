@@ -1,21 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <com.example.covid100.customviews.CovidCaseCard
-        android:id="@+id/covidCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_virus"
-        android:textColor="@android:color/holo_green_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:resType="CONFIRMED"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:title="Covid Cases" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/llUpdatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            android:layout_marginStart="14dp">
+
+            <TextView
+                android:id="@+id/tvUpdatedAtInfo"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Updated at:"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvUpdatedTime"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                tools:text="13/05/2020 12:00"
+                android:fontFamily="sans-serif-black"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <com.example.covid100.customviews.CovidCaseCard
+            android:id="@+id/ccConfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_virus"
+            android:textColor="@android:color/holo_green_light"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/llUpdatedAt"
+            app:resType="CONFIRMED"
+            android:layout_marginEnd="18dp"/>
+
+        <com.example.covid100.customviews.CovidCaseCard
+            android:id="@+id/ccActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_patients"
+            android:textColor="@android:color/holo_blue_light"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/llUpdatedAt"
+            app:resType="ACTIVE"
+            android:layout_marginStart="18dp"/>
+
+        <com.example.covid100.customviews.CovidCaseCard
+            android:id="@+id/ccRecovered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_heart"
+            android:textColor="@android:color/holo_red_light"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/ccConfirmed"
+            app:resType="RECOVERED"
+            android:layout_marginEnd="18dp"/>
+
+        <com.example.covid100.customviews.CovidCaseCard
+            android:id="@+id/ccDeath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="18dp"
+            android:src="@drawable/ic_death"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/ccActive"
+            app:resType="DECEASED" />
+
+
+        <LinearLayout
+            android:id="@+id/llHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ccRecovered"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="8dp"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="STATE/UT"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:gravity="center"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="C"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@android:color/holo_green_light"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="A"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@android:color/holo_blue_light"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="R"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@android:color/holo_red_light"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_weight="1"
+                android:layout_margin="4dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="D"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_weight="1"
+                android:layout_margin="4dp"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvStatesCases"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/llHeading"
+            app:layout_constraintEnd_toEndOf="@id/llHeading"
+            app:layout_constraintTop_toBottomOf="@id/llHeading"
+            tools:listitem="@layout/holder_covid_cases_statewise"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ccRecovered"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ccConfirmed"
+            android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

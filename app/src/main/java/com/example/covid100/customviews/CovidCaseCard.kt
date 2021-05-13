@@ -37,6 +37,6 @@ class CovidCaseCard(context: Context, attrs: AttributeSet?) : CardView(context, 
     }
 
     fun setDelta(delta: String?) {
-        tvDelta.text = delta
+        tvDelta.text  = if(delta?.get(0) != '-') "+$delta" else delta
     }
 }
