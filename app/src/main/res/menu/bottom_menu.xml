@@ -17,8 +17,8 @@
         android:title="News"
         android:icon="@drawable/ic_news"/>
 
-    <item android:id="@+id/vaccineFragment"
-        android:title="Vaccination"
-        android:icon="@drawable/ic_vaccine"/>
+<!--    <item android:id="@+id/vaccineFragment"-->
+<!--        android:title="Vaccination"-->
+<!--        android:icon="@drawable/ic_vaccine"/>-->
 
 </menu>
